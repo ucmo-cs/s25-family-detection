@@ -1,7 +1,14 @@
 #importing cv2 library
 import cv2
+import numpy as np
+from imgbeddings import imgbeddings
+from PIL import Image
+import psycopg2
+import os
+
 
 def detect_face():
+    print("Detecting faces...")
     #loading haar case algorithm file into alg variable
     alg_file = "haarcascade_frontalface_default.xml"
     #passing algo to OpenCV
@@ -24,3 +31,5 @@ def detect_face():
         target_file_name = 'stored-faces/' +str(i) + '.jpg'
         cv2.imwrite(target_file_name, cropped_img)
         i += 1
+    print("See directory for faces detected!")
+detect_face()
