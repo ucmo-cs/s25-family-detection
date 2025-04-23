@@ -1,0 +1,7 @@
+MID,1,2,3,4,5,6,Name,Gender
+1,0,1,2,2,3,1,james franco,m
+2,4,0,4,4,1,5,betsy lou (mother of james),f
+3,2,1,0,2,3,1,dave franco (brother of james),m
+4,2,1,2,0,3,1,tom franco (brother of james),m
+5,6,4,6,6,0,0,mitzie verne (grandmother of james),f
+6,4,5,4,4,0,0,doug (father of james),m
