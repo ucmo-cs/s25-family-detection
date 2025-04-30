@@ -6,7 +6,7 @@ import uuid
 def detect_face():
     print("Detecting faces...")
     #loading haar case algorithm file into alg variable
-    alg_file = "haarcascade_frontalface_default.xml"
+    alg_file = "../DataProcessingFiles/haarcascade_frontalface_default.xml"
     #passing algo to OpenCV
     haarcascade = cv2.CascadeClassifier(alg_file)
     #loading image path into file_name variable -- replace <INSERT YOUR IMAGE NAME HERE> with the path to image
@@ -16,7 +16,7 @@ def detect_face():
     # creating black and white version of image
     grey_img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
     #detecting faces
-    faces = haarcascade.detectMultiScale(grey_img, scaleFactor=1.005, minNeighbors=6, minSize=(100, 100))
+    faces = haarcascade.detectMultiScale(grey_img, scaleFactor=1.005, minNeighbors=0, minSize=(100, 100))
 
     i = str(uuid.uuid4().int)[:10]
     #for each face detected cycle through and select only face from image and upload as lone image file

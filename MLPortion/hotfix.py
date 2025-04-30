@@ -1,3 +1,4 @@
+#ensuring proper file directory storage and finding
 import pandas as pd
 import os
 df = pd.read_csv("cleaned_pairs.csv")

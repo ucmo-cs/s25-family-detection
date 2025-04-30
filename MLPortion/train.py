@@ -6,7 +6,7 @@ import sys
 
 #put all output bullshit to this file, since the pycharm terminal buffer will overflow or fill over
 #or idc the term whatever
-sys.stdout = open("Logs/train_log.txt", "a")
+sys.stdout = open("../Logs/train_log.txt", "a")
 
 from siamese_model import SiameseNetwork, ContrastiveLoss
 from DataProcessingFiles.kinship_dataset import KinshipPairDataset
@@ -20,17 +20,17 @@ DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 #load the data
 train_data = KinshipPairDataset(
-    csv_file="ActualData/pairs.csv",
-    root_dir="FIDs/FIDs"
+    csv_file="../ActualData/pairs.csv",
+    root_dir="../FIDs/FIDs"
 )
 train_loader = DataLoader(train_data, batch_size=BATCH_SIZE, shuffle=True)
 
-# --- Model ---
+#actual model
 model = SiameseNetwork().to(DEVICE)
 criterion = ContrastiveLoss(margin=MARGIN)
 optimizer = optim.Adam(model.parameters(), lr=LEARNING_RATE)
 
-# --- Resume if checkpoint exists ---
+#pickup from a checkpoint if there is one present
 checkpoints = sorted([f for f in os.listdir() if f.startswith("checkpoint_epoch_")])
 if checkpoints:
     last_ckpt = checkpoints[-1]
@@ -40,7 +40,6 @@ if checkpoints:
 else:
     epoch_start = 0
 
-# --- Training Loop ---
 for epoch in range(epoch_start, NUM_EPOCHS):
     print(f"\n🚀 Starting Epoch {epoch + 1}/{NUM_EPOCHS}")
     model.train()
@@ -59,7 +58,7 @@ for epoch in range(epoch_start, NUM_EPOCHS):
 
         total_loss += loss.item()
 
-        # Accuracy tracking
+        #tracking our accuracy
         with torch.no_grad():
             distances = torch.nn.functional.pairwise_distance(out1, out2)
             preds = (distances < 0.7).float()
@@ -67,24 +66,23 @@ for epoch in range(epoch_start, NUM_EPOCHS):
             running_correct += correct
             total_preds += label.size(0)
 
-        # Print heartbeat
+        #print progress through epoch
         if step % 500 == 0:
             print(f"🟢 Epoch {epoch+1} | Step {step}/{len(train_loader)}")
 
-    # End of epoch
     avg_loss = total_loss / len(train_loader)
     accuracy = running_correct / total_preds
     print(f"✅ Epoch {epoch+1} complete. Avg Loss: {avg_loss:.4f} | Accuracy: {accuracy:.4f}")
 
-    # Save checkpoint
+    #save checkpoint
     ckpt_path = f"checkpoint_epoch_{epoch+1}.pt"
     torch.save(model.state_dict(), ckpt_path)
     print(f"💾 Saved checkpoint: {ckpt_path}")
 
     # Save metrics
-    with open("ActualData/metrics.csv", "a") as f:
+    with open("../ActualData/metrics.csv", "a") as f:
         f.write(f"{epoch+1},{avg_loss:.4f},{accuracy:.4f}\n")
 
 # Final model
-torch.save(model.state_dict(), "models/siamese_kinship_model.pt")
+torch.save(model.state_dict(), "../models/siamese_kinship_model.pt")
 print("✅ Final model saved to siamese_kinship_model.pt")

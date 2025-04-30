@@ -8,20 +8,21 @@ from siamese_model import SiameseNetwork
 from DataProcessingFiles.kinship_dataset import KinshipPairDataset
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-sys.stdout = open("Logs/eval_log1.txt", "a")
+sys.stdout = open("../Logs/eval_log1.txt", "a")
 
-# Load model
+#load the mode l
 model = SiameseNetwork().to(DEVICE)
-model.load_state_dict(torch.load("models/siamese_kinship_model.pt"))
+model.load_state_dict(torch.load("../models/siamese_kinship_model.pt"))
 model.eval()
 
-# Load evaluation data
+#load the eval data
 eval_dataset = KinshipPairDataset(
-    csv_file="ActualData/eval.csv",
-    root_dir="FIDs/FIDs"
+    csv_file="../ActualData/eval.csv",
+    root_dir="../FIDs/FIDs"
 )
 eval_loader = DataLoader(eval_dataset, batch_size=1, shuffle=False)
 
+#this commented stuff is apart of me figuring out the most accurate model thereshold to use
 '''all_preds = []
 all_labels = []
 all_scores = []'''
@@ -36,6 +37,7 @@ with torch.no_grad():
 
         all_distances.append(dist.item())
         all_labels.append(label.item())
+        #same as the previously commented out junk
         '''img1, img2 = img1.to(DEVICE), img2.to(DEVICE)
         out1, out2 = model(img1, img2)
         dist = torch.nn.functional.pairwise_distance(out1, out2)
