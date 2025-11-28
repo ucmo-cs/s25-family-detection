@@ -20,8 +20,11 @@ def preprocess(image_path):
     return transform(img).unsqueeze(0).to(DEVICE)
 
 #image paths chosen for testing inference.py on its own
-img1_path = "TestPhotosCleaned/jackson-solo-img1_face_0.jpg"
-img2_path = "TestPhotosCleaned/mom-solo_face_0.jpg"
+img1_path = "TestPhotosCleaned/mom-solo_face_0.jpg"
+img2_path = "TestPhotosCleaned/jackson-solo-img_face_0.jpg"
+
+img1 = preprocess(img1_path)
+img2 = preprocess(img2_path)
 
 #img1_path = "./TestPhotosCleaned/jackson-solo-img1.jpg"
 #img2_path = "./TestPhotosCleaned/jackson-solo-img.jpg"
@@ -47,7 +50,6 @@ with torch.no_grad():
     out1, out2 = model(img1, img2)
     dist = torch.nn.functional.pairwise_distance(out1, out2)
 
-#determine best threshold for comparison
 print(f"\nDistance between images: {dist.item():.4f}")
 if dist.item() < 0.2:
     print("👨‍👩‍👧 The model says: They might be KIN!")

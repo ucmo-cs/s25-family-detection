@@ -25,11 +25,9 @@ def detect_faces_from_folder(folder_path, output_folder="../TestPhotosCleaned"):
                 cropped_face = img[y:y + h, x:x + w]
                 cv2.imwrite(os.path.join(output_folder, f"{os.path.splitext(filename)[0]}_face_{i}.jpg"), cropped_face)
 
-            # Optionally, save the image with bounding boxes
             # cv2.imwrite(os.path.join(output_folder, f"detected_{filename}"), img)
     print("Face detection complete. Detected faces are saved in the 'detected_faces' folder.")
 
 
-# Example usage:
-folder_path = "../TestPhotos"  # Replace with the path to your folder
+folder_path = "../TestPhotos"
 detect_faces_from_folder(folder_path)
