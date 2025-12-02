@@ -6,13 +6,31 @@ from torch.utils.data import Dataset
 from torchvision import transforms
 
 class KinshipPairDataset(Dataset):
-    def __init__(self, csv_file, root_dir, transform=None):
+    def __init__(self, csv_file, root_dir, transform=None, is_training=True):
         self.pairs_df = pd.read_csv(csv_file)
         self.root_dir = root_dir
-        self.transform = transform or transforms.Compose([
-            transforms.Resize((160, 160)),
-            transforms.ToTensor(),
-        ])
+        self.is_training = is_training
+
+        if transform:
+            self.transform = transform
+        elif is_training:
+            # Augmentation for training
+            self.transform = transforms.Compose([
+                transforms.Resize((176, 176)),
+                transforms.RandomCrop((160, 160)),
+                transforms.RandomHorizontalFlip(p=0.5),
+                transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2),
+                transforms.RandomRotation(degrees=10),
+                transforms.ToTensor(),
+                transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])
+            ])
+        else:
+            # No augmentation for eval
+            self.transform = transforms.Compose([
+                transforms.Resize((160, 160)),
+                transforms.ToTensor(),
+                transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])
+            ])
 
     def __getitem__(self, idx):
         row = self.pairs_df.iloc[idx]
@@ -21,10 +39,6 @@ class KinshipPairDataset(Dataset):
         img1_path = os.path.normpath(os.path.join(self.root_dir, row['img1'].strip().lstrip("/")))
         img2_path = os.path.normpath(os.path.join(self.root_dir, row['img2'].strip().lstrip("/")))
 
-        print("\n[DEBUG]")
-        print("img1 raw:", repr(row['img1']))
-        print("joined img1 path:", repr(img1_path))
-        print("exists?", os.path.exists(img1_path))
 
         try:
             img1 = Image.open(img1_path).convert("RGB")

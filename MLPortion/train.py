@@ -20,8 +20,9 @@ DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 #load the data
 train_data = KinshipPairDataset(
-    csv_file="../ActualData/pairs.csv",
-    root_dir="../FIDs/FIDs"
+    csv_file="../ActualData/train.csv",
+    root_dir="../FIDs/FIDs",
+    is_training=True
 )
 train_loader = DataLoader(train_data, batch_size=BATCH_SIZE, shuffle=True)
 

@@ -8,7 +8,7 @@ class SiameseNetwork(nn.Module):
         super(SiameseNetwork, self).__init__()
         #use the pretrained resnet18 as base feature extractor
         #use resnet18, model thats pretrained on imagenet since it already gets low-lwevel features like edges, shapes, skin tones
-        base_model = models.resnet18(pretrained=True)
+        base_model = models.resnet18(weights=models.ResNet18_Weights.IMAGENET1K_V1)
         #remove classification head
         #get rid of classification layer since we dont really gaf about classifying objects (only features from face)
         self.encoder = nn.Sequential(*list(base_model.children())[:-1])

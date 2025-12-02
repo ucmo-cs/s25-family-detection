@@ -18,7 +18,8 @@ model.eval()
 #load the eval data
 eval_dataset = KinshipPairDataset(
     csv_file="../ActualData/eval.csv",
-    root_dir="../FIDs/FIDs"
+    root_dir="../FIDs/FIDs",
+    is_training=False
 )
 eval_loader = DataLoader(eval_dataset, batch_size=1, shuffle=False)
 

@@ -40,6 +40,9 @@ def generate_pairs(data_dir, output_csv, num_neg_pairs=10000):
     print(f"Generated {len(positive_pairs)} positive pairs.")
 
     #create neg pairs, random people from random families
+    # Generate same number as positive pairs for balance
+    num_neg_pairs = len(positive_pairs)
+
     all_imgs = []
     for family in families:
         for mid in os.listdir(os.path.join(data_dir, family)):
@@ -80,4 +83,4 @@ def generate_pairs(data_dir, output_csv, num_neg_pairs=10000):
 
     print(f"Saved pairs to {output_csv}")
 
-generate_pairs("../FIDs/FIDs", output_csv="pairs.csv")
+generate_pairs("../FIDs/FIDs", output_csv="../ActualData/pairs.csv")
