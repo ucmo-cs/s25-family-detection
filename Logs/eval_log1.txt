@@ -1,0 +1,58 @@
+Processing sample 0/217283
+Processing sample 100/217283
+Processing sample 200/217283
+Processing sample 300/217283
+Processing sample 400/217283
+Processing sample 500/217283
+Processing sample 600/217283
+Processing sample 700/217283
+Processing sample 800/217283
+Processing sample 900/217283
+Processing sample 1000/217283
+Processing sample 1100/217283
+Processing sample 1200/217283
+Processing sample 1300/217283
+Processing sample 1400/217283
+Processing sample 1500/217283
+Processing sample 1600/217283
+Processing sample 1700/217283
+Processing sample 1800/217283
+Processing sample 1900/217283
+Processing sample 2000/217283
+Processing sample 2100/217283
+Processing sample 2200/217283
+Processing sample 2300/217283
+Processing sample 2400/217283
+
+📊 Threshold Sweep Results:
+Threshold 0.20 → Accuracy: 0.6844
+Threshold 0.25 → Accuracy: 0.6877
+Threshold 0.30 → Accuracy: 0.6914
+Threshold 0.35 → Accuracy: 0.6951
+Threshold 0.40 → Accuracy: 0.6987
+Threshold 0.45 → Accuracy: 0.7029
+Threshold 0.50 → Accuracy: 0.7067
+Threshold 0.55 → Accuracy: 0.7110
+Threshold 0.60 → Accuracy: 0.7152
+Threshold 0.65 → Accuracy: 0.7200
+Threshold 0.70 → Accuracy: 0.7252
+Threshold 0.75 → Accuracy: 0.7300
+Threshold 0.80 → Accuracy: 0.7346
+Threshold 0.85 → Accuracy: 0.7384
+Threshold 0.90 → Accuracy: 0.7391
+Threshold 0.95 → Accuracy: 0.7349
+Threshold 1.00 → Accuracy: 0.7195
+Threshold 1.05 → Accuracy: 0.6931
+Threshold 1.10 → Accuracy: 0.6617
+Threshold 1.15 → Accuracy: 0.6273
+Threshold 1.20 → Accuracy: 0.5889
+Threshold 1.25 → Accuracy: 0.5499
+Threshold 1.30 → Accuracy: 0.5108
+Threshold 1.35 → Accuracy: 0.4742
+Threshold 1.40 → Accuracy: 0.4411
+Threshold 1.45 → Accuracy: 0.4115
+
+✅ Best Threshold: 0.90
+🎯 Accuracy at Best Threshold: 0.7391
+✅ Evaluation Complete
+ROC AUC:  0.7611

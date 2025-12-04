@@ -31,7 +31,7 @@ all_distances = []
 all_labels = []
 
 with torch.no_grad():
-    for img1, img2, label in eval_loader:
+    for i, (img1, img2, label) in enumerate(eval_loader):
         img1, img2 = img1.to(DEVICE), img2.to(DEVICE)
         out1, out2 = model(img1, img2)
         dist = torch.nn.functional.pairwise_distance(out1, out2)

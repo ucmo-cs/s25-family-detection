@@ -14,13 +14,14 @@ class KinshipPairDataset(Dataset):
         if transform:
             self.transform = transform
         elif is_training:
-            # Augmentation for training
+            # Augmentation for training - increased strength
             self.transform = transforms.Compose([
                 transforms.Resize((176, 176)),
                 transforms.RandomCrop((160, 160)),
                 transforms.RandomHorizontalFlip(p=0.5),
-                transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2),
-                transforms.RandomRotation(degrees=10),
+                transforms.ColorJitter(brightness=0.3, contrast=0.3, saturation=0.3, hue=0.1),
+                transforms.RandomRotation(degrees=15),
+                transforms.RandomGrayscale(p=0.1),
                 transforms.ToTensor(),
                 transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])
             ])

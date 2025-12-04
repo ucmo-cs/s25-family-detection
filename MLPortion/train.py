@@ -4,18 +4,31 @@ import torch.optim as optim
 import os
 import sys
 
-#put all output bullshit to this file, since the pycharm terminal buffer will overflow or fill over
-#or idc the term whatever
-sys.stdout = open("../Logs/train_log.txt", "a")
+#write to both terminal and log file
+class DualOutput:
+    def __init__(self, filename):
+        self.terminal = sys.stdout
+        self.log = open(filename, "a")
+
+    def write(self, message):
+        self.terminal.write(message)
+        self.log.write(message)
+
+    def flush(self):
+        self.terminal.flush()
+        self.log.flush()
+
+sys.stdout = DualOutput("../Logs/train_log.txt")
+sys.stderr = sys.stdout  # Also redirect errors
 
 from siamese_model import SiameseNetwork, ContrastiveLoss
 from DataProcessingFiles.kinship_dataset import KinshipPairDataset
 
 # --- Config --ys
 BATCH_SIZE = 16
-NUM_EPOCHS = 10
+NUM_EPOCHS = 15
 LEARNING_RATE = 1e-4
-MARGIN = 1.0
+MARGIN = 2.0
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 #load the data
